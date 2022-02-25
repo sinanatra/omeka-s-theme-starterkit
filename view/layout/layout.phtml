@@ -18,50 +18,23 @@ $userBar = $this->userBar();
         <?php echo $this->headLink(); ?>
         <?php echo $this->headStyle(); ?>
         <?php echo $this->headScript(); ?>
-        
-        <style>
-            <?php if ($accentColor = $this->themeSetting('accent_color')): ?>
-            a:link,
-            a:visited {
-                color: <?php echo $accentColor; ?>
-            }
-            
-            a:active,
-            a:hover {
-                color: <?php echo $accentColor; ?>;
-                opacity: .75;
-            }
-            <?php endif; ?>
-        </style>
     </head>
 
     <?php echo $this->htmlElement('body'); ?>
         <?php echo $userBar; ?>
         <header>
-            <h1>
-                <a href="<?php echo $site->url(); ?>" class="site-title">
-                <?php echo $escape($siteTitle); ?>
-                </a>
-            </h1>
-            <div id="search">
-                <?php echo $this->partial('common/search-form'); ?>
-            </div>
-
             <nav>
-            <?php
-            echo $site->publicNav()->menu()->renderMenu(null, [
-                'maxDepth' => $this->themeSetting('nav_depth') - 1
-            ]);
-            ?>
+                <a href="<?php echo $site->url(); ?>" class="site-title">
+                    <?php echo $escape($siteTitle); ?>
+                </a>
+                <?php echo $site->publicNav()->menu(); ?>
+                <div id="search"><?php echo $this->partial('common/search-form'); ?></div>
             </nav>
         </header>
-        <div id="content" role="main">
-            <?php echo $this->content; ?>
-        </div>
-        <footer>
-            <?php if ($footerContent = $this->themeSetting('footer')): ?>
-            <?php echo $footerContent; ?>
-            <?php endif; ?>
-        </footer>
+        <main class="page-content" aria-label="<?php echo $this->escapeHtml($this->translate('Content')); ?>">
+            <div class="wrapper">   
+                <?= $this->content; ?> 
+            </div>
+        </main>
     </body>
 </html>
